@@ -43,6 +43,12 @@ class Notification extends AbstractModel implements NotificationInterface
     const ORDER_OPENED = 'ORDER_OPENED';
     const ORDER_CLOSED = "ORDER_CLOSED";
     const OFFER_CLOSED = "OFFER_CLOSED";
+    const CHARGEBACK = "CHARGEBACK";
+    const SECOND_CHARGEBACK = "SECOND_CHARGEBACK";
+    const CHARGEBACK_REVERSED = "CHARGEBACK_REVERSED";
+    const REQUEST_FOR_INFORMATION = "REQUEST_FOR_INFORMATION";
+    const NOTIFICATION_OF_CHARGEBACK = "NOTIFICATION_OF_CHARGEBACK";
+    const STATE_ADYEN_AUTHORIZED = "adyen_authorized";
     const MAX_ERROR_COUNT = 5;
 
     public function __construct(
@@ -256,32 +262,20 @@ class Notification extends AbstractModel implements NotificationInterface
 
     public function getCreatedAt(): ?string
     {
-        $createdAt = $this->getData(self::CREATED_AT);
-
-        if ($createdAt instanceOf Datetime) {
-            return $createdAt->format('Y-m-d H:i:s');
-        }
-
-        return $createdAt;
+        return $this->getData(self::CREATED_AT);
     }
 
-    public function setCreatedAt(DateTime $createdAt): NotificationInterface
+    public function setCreatedAt(string $createdAt): NotificationInterface
     {
         return $this->setData(self::CREATED_AT, $createdAt);
     }
 
     public function getUpdatedAt(): ?string
     {
-        $updatedAt = $this->getData(self::CREATED_AT);
-
-        if ($updatedAt instanceOf Datetime) {
-            return $updatedAt->format('Y-m-d H:i:s');
-        }
-
-        return $updatedAt;
+        return  $this->getData(self::UPDATED_AT);
     }
 
-    public function setUpdatedAt(DateTime $timestamp): NotificationInterface
+    public function setUpdatedAt(string $timestamp): NotificationInterface
     {
         return $this->setData(self::UPDATED_AT, $timestamp);
     }
